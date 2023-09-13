@@ -38,32 +38,37 @@ void check_puzzle_number(const vector2d &puzzle) {
     }
 }
 
+int get_puzzle_len(std::ifstream &input) {
+    std::string line;
+
+    do {
+        if (!getline(input, line))
+            throw(std::logic_error("pars_file: empty file"));
+        line = line.substr(0, line.find_first_of('#'));
+    } while (line == "");
+
+    if (line.find_first_of(' ') != std::string::npos
+        || line.find_first_of('\t') != std::string::npos)
+        throw(std::logic_error("parse_file: need to precise size of the square in the file"));
+
+    return std::stoi(line);
+}
+
 vector2d parse_file(const char * str) {
     std::string file(str);
     check_extension(file, ".txt");
 
     std::ifstream input(file);
     std::string line;
-    std::string no_comment_line;
 
-    do {
-        if (!getline(input, line))
-            throw(std::logic_error("pars_file: empty file"));
-        no_comment_line = line.substr(0, line.find_first_of('#'));
-    } while (no_comment_line == "");
-
-    if (no_comment_line.find_first_of(' ') != std::string::npos
-        || no_comment_line.find_first_of('\t') != std::string::npos)
-        throw(std::logic_error("parse_file: need to precise size of the square in the file"));
-
-    int puzzle_len = std::stoi(no_comment_line);
+    int puzzle_len = get_puzzle_len(input);
     vector2d puzzle; 
     std::vector<int> puzzle_line;
     while (getline(input, line)) {
         if (line == "")
             continue;
-        no_comment_line = line.substr(0, line.find_first_of('#'));
-        puzzle_line = mysplit(no_comment_line, DELIMITER);
+        line = line.substr(0, line.find_first_of('#'));
+        puzzle_line = mysplit(line, DELIMITER);
         if (int(puzzle_line.size()) != puzzle_len)
             throw(std::logic_error("parse_file: the puzzle is not a square of size: " + std::to_string(puzzle_len)));
         puzzle.push_back(puzzle_line);
@@ -72,6 +77,5 @@ vector2d parse_file(const char * str) {
         throw(std::logic_error("parse_file: the puzzle is not a square of size: " + std::to_string(puzzle_len)));
 
     check_puzzle_number(puzzle);    
-    print_puzzle(puzzle);
     return puzzle;
 }
