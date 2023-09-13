@@ -1,5 +1,6 @@
 #include "../inc/npuzzle.hpp"
 #include "../inc/parsing.hpp"
+#include "../inc/utils.hpp"
 #include <random>
 
 vector2d generate_puzzle() {
@@ -24,11 +25,12 @@ int main (int ac, char **av) {
         if (ac > 3)
             throw (std::invalid_argument("main: wrong number of argument\n" + std::string(USAGE)));
         vector2d puzzle;
-        // if (ac == 2) {
+        if (ac == 2) {
             puzzle = parse_file(av[1]);
-        // } else {
-            // puzzle = generate_puzzle();
-        // }
+        } else {
+            puzzle = generate_puzzle();
+        }
+        print_puzzle(puzzle);
         
     } catch (std::exception &e) {
         std::cout << e.what() << std::endl;

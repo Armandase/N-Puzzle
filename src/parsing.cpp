@@ -60,6 +60,8 @@ vector2d parse_file(const char * str) {
     vector2d puzzle; 
     std::vector<int> puzzle_line;
     while (getline(input, line)) {
+        if (line == "")
+            continue;
         no_comment_line = line.substr(0, line.find_first_of('#'));
         puzzle_line = mysplit(no_comment_line, DELIMITER);
         if (int(puzzle_line.size()) != puzzle_len)
