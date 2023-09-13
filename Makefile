@@ -1,6 +1,6 @@
 CXX		=	c++
 NAME 	= 	n-puzzle
-SRC 	=	main.cpp
+SRC 	=	main.cpp parsing.cpp
 HEADER	=	inc/parsing.hpp inc/npuzzle.hpp
 OBJS	=	$(addprefix obj/, $(SRC:.cpp=.o))
 CXXFLAGS=	-Wall -Wextra --std=c++14 -g
