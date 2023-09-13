@@ -3,5 +3,6 @@
 # include "npuzzle.hpp"
 
 void findGoal(const vector2d &, point &, int);
+void print_puzzle(const vector2d);
 
 #endif
