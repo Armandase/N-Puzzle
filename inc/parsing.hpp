@@ -1,5 +1,6 @@
 #ifndef __PARSING_HPP__
 # define __PARSING_HPP__
+
 # include "npuzzle.hpp"
 # include <fstream>
 # define DELIMITER "\n\r\t "
