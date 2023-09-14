@@ -3,9 +3,11 @@
 
 # include "npuzzle.hpp"
 # include <fstream>
-# define DELIMITER "\n\r\t "
 # include <cstring>
 # include <algorithm>
+
+# define DELIMITER "\n\r\t "
+
 
 vector2d parse_file(const char *);
 vector2d generate_puzzle(void);

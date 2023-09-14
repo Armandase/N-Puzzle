@@ -38,8 +38,9 @@ int main (int ac, char **av) {
         } else {
             puzzle = generate_puzzle();
         }
-        print_puzzle(puzzle);
-        
+        vector2d final_puzzle = finalPuzzle(puzzle.size());
+        print_puzzle(final_puzzle);
+
     } catch (std::exception &e) {
         std::cout << e.what() << std::endl;
     }
