@@ -19,19 +19,22 @@ std::vector<int> mysplit(std::string & line, std::string delimiter) {
 	return (tab);
 }
 
+void check_solvability(const vector2d & puzzle) {
+}
+
 void check_extension(const std::string & file, std::string extension) {
     if (file.substr(file.find_last_of('.')) != extension)
         throw(std::logic_error("check_extension: bad file extension\n" + std::string(USAGE)));
 }
 
 void check_puzzle_number(const vector2d &puzzle) {
-    int size = puzzle.size();
+    const int size = puzzle.size();
     std::vector<int> puzzle_numbers;
     for (int i = 0; i < size; i++) {
         puzzle_numbers.insert(puzzle_numbers.end(), puzzle[i].begin(), puzzle[i].end());
     }
 
-    int max_value = size * size - 1;
+    const int max_value = size * size - 1;
     for (int i = 0; i < max_value; i++) {
         if (std::find(puzzle_numbers.begin(), puzzle_numbers.end(), i) == puzzle_numbers.end())
             throw(std::logic_error("check_puzzle_number: the puzzle need to have number between 0 and " + std::to_string(max_value)));
@@ -61,7 +64,7 @@ vector2d parse_file(const char * str) {
     std::ifstream input(file);
     std::string line;
 
-    int puzzle_len = get_puzzle_len(input);
+    const int puzzle_len = get_puzzle_len(input);
     vector2d puzzle; 
     std::vector<int> puzzle_line;
     while (getline(input, line)) {
@@ -76,6 +79,7 @@ vector2d parse_file(const char * str) {
     if (int(puzzle.size()) != puzzle_len)
         throw(std::logic_error("parse_file: the puzzle is not a square of size: " + std::to_string(puzzle_len)));
 
-    check_puzzle_number(puzzle);    
+    check_puzzle_number(puzzle);
+    check_solvability(puzzle);  
     return puzzle;
 }
