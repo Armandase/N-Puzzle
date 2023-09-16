@@ -4,18 +4,26 @@
 #include <random>
 
 vector2d generate_puzzle() {
-    vector2d result;
     std::random_device rd;
     std::mt19937 gen(rd());
     int size = 3 + (gen() % 7);
-    int max_value = size * size - 1;
+    vector2d result(size, std::vector<int>());
+
+    int len_values = size * size;
+    std::vector<int> added_values;
+    for (int i = 0; i < len_values; i++)
+        added_values.push_back(i);
+    std::vector<int>::iterator begin = added_values.begin();
+    int index;
     
     for (int i = 0; i < size; i++)
     {
-        std::vector<int> tmp;
-        for (int j = 0; j < size; j++)
-            tmp.push_back(gen() % max_value);
-        result.push_back(tmp);
+        for (int j = 0; j < size; j++){
+            index = gen() % len_values;
+            result[i].push_back(added_values[index]);
+            added_values.erase(begin + index);
+            len_values--;
+        }
     }
     return (result);
 }

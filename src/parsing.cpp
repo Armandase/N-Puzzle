@@ -19,6 +19,10 @@ std::vector<int> mysplit(std::string & line, std::string delimiter) {
 	return (tab);
 }
 
+unsigned int get_inv_score(const vector2d & puzzle) {
+
+}
+
 void check_solvability(const vector2d & puzzle) {
 }
 
