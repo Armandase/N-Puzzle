@@ -1,12 +1,13 @@
 #include "../inc/npuzzle.hpp"
 #include "../inc/parsing.hpp"
 #include "../inc/utils.hpp"
+#include "../inc/algorithm.hpp"
 #include <random>
 
 vector2d generate_puzzle() {
     std::random_device rd;
     std::mt19937 gen(rd());
-    int size = 3 + (gen() % 7);
+    const int size = 3 + (gen() % 7);
     vector2d result(size, std::vector<int>());
 
     int len_values = size * size;
@@ -38,8 +39,7 @@ int main (int ac, char **av) {
         } else {
             puzzle = generate_puzzle();
         }
-        vector2d final_puzzle = finalPuzzle(puzzle.size());
-        print_puzzle(final_puzzle);
+        aStarAlgorithm(puzzle);
 
     } catch (std::exception &e) {
         std::cout << e.what() << std::endl;
