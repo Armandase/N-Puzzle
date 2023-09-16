@@ -12,7 +12,7 @@ typedef struct t_node
     struct t_node        *parent;
 } node;
 
-
+// int manhattanHeuristic(const node&);
 
 /*
 g est égal au nombre de coup, 
