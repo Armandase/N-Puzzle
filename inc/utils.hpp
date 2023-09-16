@@ -4,6 +4,6 @@
 
 void    print_puzzle(const vector2d&);
 vector2d finalPuzzle(const int&);
-
+std::vector<int> convert_vector(const vector2d &);
 
 #endif

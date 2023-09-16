@@ -11,6 +11,16 @@ void print_puzzle(const vector2d& puzzle) {
     std::cout << std::endl;
 }
 
+std::vector<int> convert_vector(const vector2d & puzzle) {
+    std::vector<int> vec;
+    for (const std::vector<int> & row : puzzle) {
+        for (const int & element : row) {
+            vec.push_back(element);
+        }
+    }
+    return vec;
+}
+
 vector2d finalPuzzle(const int& size)
 {
     const int vectorSize = size * size - 1;

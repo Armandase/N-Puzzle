@@ -19,11 +19,36 @@ std::vector<int> mysplit(std::string & line, std::string delimiter) {
 	return (tab);
 }
 
-unsigned int get_inv_score(const vector2d & puzzle) {
-
+unsigned int get_inv_score(const vector2d & puzzle, const int & size) {
+    int y;
+    int number;
+    int inv_count = 0;
+    for (int x_check = 0; x_check < size; x_check++) {
+        for (int y_check = 0; y_check < size; y_check++) {
+            number = puzzle[x_check][y_check];
+            if (number == 0)
+                continue ;
+            y = y_check;
+            for (int x = x_check; x < size; x++) {
+                for (; y < size; y++) {
+                    if (puzzle[x][y] != 0 && puzzle[x][y] < number)
+                        inv_count++;
+                }
+                y = 0;
+            }
+        }
+    }
+    return (inv_count);
 }
 
-void check_solvability(const vector2d & puzzle) {
+void check_solvability(const vector2d & puzzle, const int & size) {
+    const vector2d final_state = finalPuzzle(size);
+    const int inv_score = get_inv_score(puzzle, size);
+    const int final_inv_score = get_inv_score(final_state, size);
+    std::cout << "FIRST: " << inv_score << " FINAL: " << final_inv_score << std::endl;
+    if ((inv_score % 2) == (final_inv_score % 2))
+        return ;
+    throw(std::logic_error("check_solvability: the puzzle is not solvable"));
 }
 
 void check_extension(const std::string & file, std::string extension) {
@@ -68,7 +93,7 @@ vector2d parse_file(const char * str) {
     std::ifstream input(file);
     std::string line;
 
-    const int puzzle_len = get_puzzle_len(input);
+    const int size = get_puzzle_len(input);
     vector2d puzzle; 
     std::vector<int> puzzle_line;
     while (getline(input, line)) {
@@ -76,14 +101,14 @@ vector2d parse_file(const char * str) {
             continue;
         line = line.substr(0, line.find_first_of('#'));
         puzzle_line = mysplit(line, DELIMITER);
-        if (int(puzzle_line.size()) != puzzle_len)
-            throw(std::logic_error("parse_file: the puzzle is not a square of size: " + std::to_string(puzzle_len)));
+        if (int(puzzle_line.size()) != size)
+            throw(std::logic_error("parse_file: the puzzle is not a square of size: " + std::to_string(size)));
         puzzle.push_back(puzzle_line);
     }
-    if (int(puzzle.size()) != puzzle_len)
-        throw(std::logic_error("parse_file: the puzzle is not a square of size: " + std::to_string(puzzle_len)));
+    if (int(puzzle.size()) != size)
+        throw(std::logic_error("parse_file: the puzzle is not a square of size: " + std::to_string(size)));
 
     check_puzzle_number(puzzle);
-    check_solvability(puzzle);  
+    // check_solvability(puzzle, size);  
     return puzzle;
 }
