@@ -8,9 +8,4 @@
 
 typedef std::vector<std::vector<int> > vector2d;
 
-typedef struct s_point{
-    int x;
-    int y;
-} point;
-
 #endif
