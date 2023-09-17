@@ -1,9 +1,11 @@
 CXX		=	c++
 NAME 	= 	n-puzzle
 SRC 	=	main.cpp parsing.cpp \
-			utils.cpp algorithm.cpp
+			utils.cpp algorithm.cpp \
+			manhattanHeuristic.cpp
 HEADER	=	inc/parsing.hpp inc/npuzzle.hpp \
-			inc/utils.hpp inc/algorithm.hpp
+			inc/utils.hpp inc/algorithm.hpp \
+			inc/manhattanHeuristic.hpp
 OBJS	=	$(addprefix obj/, $(SRC:.cpp=.o))
 CXXFLAGS=	-Wall -Wextra --std=c++14 -g
 
