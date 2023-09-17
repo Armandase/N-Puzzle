@@ -70,8 +70,16 @@ int main (int ac, char **av) {
         } else {
             puzzle = generate_puzzle();
         }
-        vector2d final = finalPuzzle(puzzle.size());
-        std::cout << "Man value:" << manhattanHeuristic(puzzle, final) << std::endl;
+        // EXPEND NODE FUNCTION THAT RETURN VECTOR<VECTOR2D>
+
+        // std::cout << "EXPEND NODES:\n" << std::endl;
+        // std::vector<vector2d> expend_list = expend_node(puzzle);
+        // for (int i = 0; i < expend_list.size(); i++)
+        //     print_puzzle(expend_list[i]);
+
+        // MANHATTAN HEURISTIC FUNCTION
+        // vector2d final = finalPuzzle(puzzle.size());
+        // std::cout << "Man value:" << manhattanHeuristic(puzzle, final) << std::endl;
         // aStarAlgorithm(puzzle);
 
     } catch (std::exception &e) {
