@@ -2,28 +2,59 @@
 #include "../inc/parsing.hpp"
 #include "../inc/utils.hpp"
 #include "../inc/algorithm.hpp"
-#include <random>
 
-vector2d generate_puzzle() {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    const int size = 3 + (gen() % 7);
-    vector2d result(size, std::vector<int>());
+typedef struct t_point {
+    int x;
+    int y;
+} point;
 
-    int len_values = size * size;
-    std::vector<int> added_values;
-    for (int i = 0; i < len_values; i++)
-        added_values.push_back(i);
-    std::vector<int>::iterator begin = added_values.begin();
-    int index;
-    
-    for (int i = 0; i < size; i++)
-    {
+void    getCoordinate(const int& value, const vector2d& puzzle, const vector2d& final, std::vector<point>& difference)
+{
+    const int size = puzzle.size();   
+
+    for (int i = 0; i < size; i++){
         for (int j = 0; j < size; j++){
-            index = gen() % len_values;
-            result[i].push_back(added_values[index]);
-            added_values.erase(begin + index);
-            len_values--;
+            if (puzzle[i][j] == value){
+                difference.front().x = j;
+                difference.front().y = i;
+            }
+            if (final[i][j] == value){
+                difference.back().x = j;
+                difference.back().y = i;
+            }
+        }
+    }
+}
+
+int   computeDistance(const point& puzzleCoo, const point& finalCoo){
+    if (puzzleCoo.x == finalCoo.x && puzzleCoo.y == finalCoo.y)
+        return (0);
+    
+    int result = 0;
+
+    if (puzzleCoo.x < finalCoo.x)
+        result += (finalCoo.x - puzzleCoo.x);
+    else if (puzzleCoo.x > finalCoo.x)
+        result += (puzzleCoo.x - finalCoo.x);
+
+    if (puzzleCoo.y < finalCoo.y)
+        result += (finalCoo.y - puzzleCoo.y);
+    else if (puzzleCoo.y > finalCoo.y)
+        result += (puzzleCoo.y - finalCoo.y);
+    return (result);
+}
+
+int manhattanHeuristic(const vector2d& puzzle, const vector2d& final){
+    const int size = puzzle.size();
+    int result = 0;
+    std::vector<point> difference(2);
+
+    for (int i = 0; i < size; i++){
+        for (int j = 0; j < size; j++){
+            if (puzzle[i][j] == 0)
+                continue ;
+            getCoordinate(puzzle[i][j], puzzle, final, difference);
+            result += computeDistance(difference.front(), difference.back());
         }
     }
     return (result);
@@ -39,7 +70,9 @@ int main (int ac, char **av) {
         } else {
             puzzle = generate_puzzle();
         }
-        aStarAlgorithm(puzzle);
+        vector2d final = finalPuzzle(puzzle.size());
+        std::cout << "Man value:" << manhattanHeuristic(puzzle, final) << std::endl;
+        // aStarAlgorithm(puzzle);
 
     } catch (std::exception &e) {
         std::cout << e.what() << std::endl;

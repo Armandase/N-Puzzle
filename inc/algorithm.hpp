@@ -20,6 +20,7 @@ typedef struct t_node
 } node;
 
 std::vector<node> expend_node(const std::vector<vector2d> &, const vector2d &);
+// int manhattanHeuristic(const node&);
 
 /*
 g est égal au nombre de coup, 
