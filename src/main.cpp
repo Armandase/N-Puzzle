@@ -8,14 +8,19 @@ typedef struct t_point {
     int y;
 } point;
 
-point   getCoordinate(const int& value, const vector2d& puzzle)
+void    getCoordinate(const int& value, const vector2d& puzzle, const vector2d& final, std::vector<point>& difference)
 {
     const int size = puzzle.size();   
+
     for (int i = 0; i < size; i++){
         for (int j = 0; j < size; j++){
             if (puzzle[i][j] == value){
-                point result = {j, i};
-                return (result);
+                difference.front().x = j;
+                difference.front().y = i;
+            }
+            if (final[i][j] == value){
+                difference.back().x = j;
+                difference.back().y = i;
             }
         }
     }
@@ -42,16 +47,14 @@ int   computeDistance(const point& puzzleCoo, const point& finalCoo){
 int manhattanHeuristic(const vector2d& puzzle, const vector2d& final){
     const int size = puzzle.size();
     int result = 0;
-    point puzzleCoo;
-    point finalCoo;
+    std::vector<point> difference(2);
 
     for (int i = 0; i < size; i++){
         for (int j = 0; j < size; j++){
             if (puzzle[i][j] == 0)
                 continue ;
-            puzzleCoo = getCoordinate(puzzle[i][j], puzzle);
-            finalCoo = getCoordinate(puzzle[i][j], final);
-            result += computeDistance(puzzleCoo, finalCoo);
+            getCoordinate(puzzle[i][j], puzzle, final, difference);
+            result += computeDistance(difference.front(), difference.back());
         }
     }
     return (result);
