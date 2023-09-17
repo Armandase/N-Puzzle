@@ -14,8 +14,9 @@ enum direction {
 
 typedef struct t_node
 {
-    vector2d    grid;
+    vector2d    puzzle;
     int         g;
+    int         f;
     struct t_node        *parent;
 } node;
 
