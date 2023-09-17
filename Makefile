@@ -2,7 +2,7 @@ CXX		=	c++
 NAME 	= 	n-puzzle
 SRC 	=	main.cpp parsing.cpp \
 			utils.cpp algorithm.cpp \
-			manhattanHeuristic.cpp
+			expend.cpp manhattanHeuristic.cpp
 HEADER	=	inc/parsing.hpp inc/npuzzle.hpp \
 			inc/utils.hpp inc/algorithm.hpp \
 			inc/manhattanHeuristic.hpp
