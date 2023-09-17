@@ -71,11 +71,15 @@ int main (int ac, char **av) {
             puzzle = generate_puzzle();
         }
         // EXPEND NODE FUNCTION THAT RETURN VECTOR<VECTOR2D>
-
-        // std::cout << "EXPEND NODES:\n" << std::endl;
-        // std::vector<vector2d> expend_list = expend_node(puzzle);
-        // for (int i = 0; i < expend_list.size(); i++)
-        //     print_puzzle(expend_list[i]);
+        print_puzzle(puzzle);
+        std::cout << "EXPEND NODES:\n" << std::endl;
+        node puzzle_node;
+        puzzle_node.grid = puzzle;
+        puzzle_node.g = 0;
+        puzzle_node.parent = NULL;
+        std::vector<node> expend_list = expend_node(puzzle_node);
+        for (int i = 0; i < expend_list.size(); i++)
+            print_puzzle(expend_list[i].grid);
 
         // MANHATTAN HEURISTIC FUNCTION
         // vector2d final = finalPuzzle(puzzle.size());

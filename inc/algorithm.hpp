@@ -19,7 +19,7 @@ typedef struct t_node
     struct t_node        *parent;
 } node;
 
-std::vector<vector2d> expend_node(const vector2d &);
+std::vector<node> expend_node(node &);
 // int manhattanHeuristic(const node&);
 
 /*
