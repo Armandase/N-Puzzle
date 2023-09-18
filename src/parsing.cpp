@@ -58,9 +58,9 @@ void check_solvability(const vector2d & puzzle, const int & size) {
     if (size % 2 == 0) {
         const int blank_row_s = get_zero_row(puzzle, size);
         const int blank_row_g = get_zero_row(goal_state, size);
-        if (inv_goal % 2 == 0 && inv_initial % 2 == abs(blank_row_g - blank_row_s))
+        if (inv_goal % 2 == 0 && inv_initial % 2 == abs(blank_row_g - blank_row_s) % 2)
             return ;
-        if (inv_goal % 2 == 1 && inv_initial % 2 != abs(blank_row_g - blank_row_s))
+        if (inv_goal % 2 == 1 && inv_initial % 2 != abs(blank_row_g - blank_row_s) % 2)
             return ;
     }
     throw(std::logic_error("check_solvability: the puzzle is not solvable"));
