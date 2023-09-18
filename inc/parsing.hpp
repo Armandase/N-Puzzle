@@ -11,5 +11,6 @@
 
 vector2d parse_file(const char *);
 vector2d generate_puzzle(void);
+void check_solvability(const vector2d &, const int &);
 
 #endif
