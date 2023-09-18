@@ -33,8 +33,8 @@ std::vector<node>    findLowestF(const std::vector<node>& list){
 }
 
 node    aStarAlgorithm(vector2d& puzzle){
-    node goal = {finalPuzzle(puzzle.size()), 0, 0, NULL};
-    node start = {puzzle, 0, manhattanHeuristic(puzzle, goal.puzzle), NULL};
+    node goal = {finalPuzzle(puzzle.size()), 0, 0, std::vector<vector2d>(0)};
+    node start = {puzzle, 0, manhattanHeuristic(puzzle, goal.puzzle), std::vector<vector2d>(0)};
     std::vector<node> open_list = {start};
     std::vector<vector2d> closed_list;
     std::vector<node> tmp;

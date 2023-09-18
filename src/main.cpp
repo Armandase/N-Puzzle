@@ -19,6 +19,8 @@ int main (int ac, char **av) {
         std::cout << "result in " << result.g << "\n";
         print_puzzle(result.puzzle);
 
+        // for (int i = result.parent.size() - 1; i >= 0; i--)
+            // print_puzzle(result.parent[i]);
     } catch (std::exception &e) {
         std::cout << e.what() << std::endl;
     }

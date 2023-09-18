@@ -40,14 +40,15 @@ vector2d node_movement(vector2d node, int & x, int & y, const int & direction) {
     return node;
 }
 
-std::vector<node> add_nodes(node & p_node, node & goal, int & x, int & y) {
+std::vector<node> add_nodes(node p_node, node & goal, int & x, int & y) {
     node new_node;
     std::vector<node> expend_list;
     for (int i = 0; i < 4; i++) {
         new_node.puzzle = node_movement(p_node.puzzle, x, y, i);
         new_node.g = p_node.g + 1;
         new_node.f = new_node.g + manhattanHeuristic(new_node.puzzle, goal.puzzle);
-        new_node.parent = &p_node;
+        new_node.parent = p_node.parent;
+        new_node.parent.push_back(p_node.puzzle);
         if (new_node.puzzle != p_node.puzzle)
             expend_list.push_back(new_node);
     }

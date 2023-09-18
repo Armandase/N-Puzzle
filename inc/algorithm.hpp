@@ -16,7 +16,7 @@ typedef struct t_node
     vector2d    puzzle;
     int         g;
     int         f;
-    struct t_node        *parent;
+    std::vector<vector2d>  parent;
 } node;
 
 
