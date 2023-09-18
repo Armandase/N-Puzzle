@@ -2,8 +2,7 @@
 # define __ALGORITHM_HPP__
 
 # include "npuzzle.hpp"
-
-void    aStarAlgorithm(vector2d&);
+# include <algorithm>
 
 enum direction {
     UP,
@@ -20,8 +19,9 @@ typedef struct t_node
     struct t_node        *parent;
 } node;
 
-std::vector<node> expend_node(node &);
-// int manhattanHeuristic(const node&);
+
+node    aStarAlgorithm(vector2d&);
+std::vector<node> expend_node(node &, node &);
 
 /*
 g est égal au nombre de coup, 

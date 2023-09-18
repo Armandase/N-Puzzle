@@ -12,16 +12,6 @@ void print_puzzle(const vector2d& puzzle) {
     std::cout << std::endl;
 }
 
-std::vector<int> convert_vector(const vector2d & puzzle) {
-    std::vector<int> vec;
-    for (const std::vector<int> & row : puzzle) {
-        for (const int & element : row) {
-            vec.push_back(element);
-        }
-    }
-    return vec;
-}
-
 vector2d finalPuzzle(const int& size)
 {
     const int vectorSize = size * size - 1;
@@ -56,7 +46,7 @@ vector2d finalPuzzle(const int& size)
 vector2d generate_puzzle() {
     std::random_device rd;
     std::mt19937 gen(rd());
-    const int size = 3 + (gen() % 7);
+    const int size = 3 + (gen() % 4);
     vector2d result(size, std::vector<int>());
 
     int len_values = size * size;
