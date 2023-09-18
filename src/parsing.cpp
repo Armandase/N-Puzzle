@@ -40,14 +40,29 @@ unsigned int get_inv_score(const vector2d & puzzle, const int & size) {
     }
     return (inv_count);
 }
+int get_zero_row(const vector2d & puzzle, const int & size) {
+    for (int x = 0; x < size;x++) {
+        for (int y = 0; y < size; y++) {
+            if (puzzle[x][y] == 0)
+                return x + 1;
+        }
+    }
+}
 
 void check_solvability(const vector2d & puzzle, const int & size) {
-    const vector2d final_state = finalPuzzle(size);
-    const int inv_score = get_inv_score(puzzle, size);
-    const int final_inv_score = get_inv_score(final_state, size);
-    std::cout << "FIRST: " << inv_score << " FINAL: " << final_inv_score << std::endl;
-    if ((inv_score % 2) == (final_inv_score % 2))
-        return ;
+    const int inv_initial = get_inv_score(puzzle, size);
+    const vector2d goal_state = finalPuzzle(size);
+    const int inv_goal = get_inv_score(goal_state, size);
+    if (size % 2 == 1 && inv_goal % 2 == inv_initial % 2)
+        return ;    
+    if (size % 2 == 0) {
+        const int blank_row_s = get_zero_row(puzzle, size);
+        const int blank_row_g = get_zero_row(goal_state, size);
+        if (inv_goal % 2 == 0 && inv_initial % 2 == abs(blank_row_g - blank_row_s))
+            return ;
+        if (inv_goal % 2 == 1 && inv_initial % 2 != abs(blank_row_g - blank_row_s))
+            return ;
+    }
     throw(std::logic_error("check_solvability: the puzzle is not solvable"));
 }
 
@@ -109,6 +124,6 @@ vector2d parse_file(const char * str) {
         throw(std::logic_error("parse_file: the puzzle is not a square of size: " + std::to_string(size)));
 
     check_puzzle_number(puzzle);
-    // check_solvability(puzzle, size);  
+    check_solvability(puzzle, size);  
     return puzzle;
 }
