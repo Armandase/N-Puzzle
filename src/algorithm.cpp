@@ -71,10 +71,8 @@ node    aStarAlgorithm(vector2d& puzzle){
 
                 std::vector<node>::iterator it_tmp = findInstance(current, tmp);
                 if (it_tmp != tmp.end()){
-                    // if (current.g < it_tmp->g){
-                        continue;
-                    // }
-                }else{
+                    continue;
+                } else {
                     tmp.push_back(current);
                 }
 
@@ -82,6 +80,7 @@ node    aStarAlgorithm(vector2d& puzzle){
             closed_list.push_back(process);
         }
         open_list = tmp;
+        // open_list.insert( open_list.end(), tmp.begin(), tmp.end() );
         i += tmp.size();
         if (max_open < open_list.size())
             max_open = open_list.size();

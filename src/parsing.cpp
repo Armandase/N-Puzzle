@@ -77,6 +77,5 @@ vector2d parse_file(const char * str) {
         throw(std::logic_error("parse_file: the puzzle is not a square of size: " + std::to_string(size)));
 
     check_puzzle_number(puzzle);
-    check_solvability(puzzle, size);  
     return puzzle;
 }
