@@ -36,26 +36,34 @@ node    aStarAlgorithm(vector2d& puzzle){
     node goal = {finalPuzzle(puzzle.size()), 0, 0, std::vector<vector2d>(0)};
     node start = {puzzle, 0, manhattanHeuristic(puzzle, goal.puzzle), std::vector<vector2d>(0)};
     std::vector<node> open_list = {start};
-    std::vector<vector2d> closed_list;
+    std::vector<node> closed_list;
     std::vector<node> tmp;
     std::vector<node> check_node;
     std::vector<node> process_list;
+    int i = 1;
+    int max_open = 0;
 
     while (!open_list.empty()) {
         process_list = findLowestF(open_list);
 
         for (node process : process_list) {
-            if (process.puzzle == goal.puzzle)
+            if (process.puzzle == goal.puzzle){
+                std::cout << "complexity in size: " << max_open << std::endl;
+                std::cout << "complexity in time: " << i << std::endl;
                 return (process);
+            }
 
             open_list.erase(findInstance(process, open_list));
 
             check_node = expend_node(process, goal);
             for (node current: check_node) {
-                if (current.puzzle == goal.puzzle)
+                if (current.puzzle == goal.puzzle){
+                    std::cout << "complexity in size: " << max_open << std::endl;
+                    std::cout << "complexity in time: " << i << std::endl;
                     return (current);
+                }
 
-                std::vector<vector2d>::iterator it_close = std::find(closed_list.begin(), closed_list.end(), current.puzzle);
+                std::vector<node>::iterator it_close = findInstance(current, closed_list);
                 if (it_close != closed_list.end()){
                     continue;
                 }
@@ -71,11 +79,16 @@ node    aStarAlgorithm(vector2d& puzzle){
                 }
 
             }
-            closed_list.push_back(process.puzzle);
+            closed_list.push_back(process);
         }
         open_list = tmp;
+        i += tmp.size();
+        if (max_open < open_list.size())
+            max_open = open_list.size();
         tmp.clear();
     }
+    std::cout << "complexity in size: " << max_open << std::endl;
+    std::cout << "complexity in time: " << i << std::endl;
     throw(std::logic_error("aStarAlgorithm: No solution found"));
 }
 

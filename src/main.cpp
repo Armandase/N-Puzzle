@@ -16,11 +16,11 @@ int main (int ac, char **av) {
         print_puzzle(puzzle);
         
         node result = aStarAlgorithm(puzzle);
-        std::cout << "result in " << result.g << "\n";
+        std::cout << "Number of moves: " << result.g << "\n";
         print_puzzle(result.puzzle);
 
         // for (int i = result.parent.size() - 1; i >= 0; i--)
-            // print_puzzle(result.parent[i]);
+        //     print_puzzle(result.parent[i]);
     } catch (std::exception &e) {
         std::cout << e.what() << std::endl;
     }

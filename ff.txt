@@ -1,0 +1,6 @@
+# This puzzle is solvable
+4
+ 5  3  8  1 
+ 7  2 14 13 
+ 9  0 15 12 
+11 10  4  6 
