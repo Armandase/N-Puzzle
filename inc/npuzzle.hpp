@@ -6,6 +6,12 @@
 # include <vector>
 # define USAGE "Usage: ./n-puzzle <file.txt>"
 
+enum heuristic {
+    MANHATTAN = 1,
+    LINEAR,
+    TO_DEFINE,
+};
+
 typedef std::vector<std::vector<int> > vector2d;
 
 #endif

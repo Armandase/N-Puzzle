@@ -40,13 +40,13 @@ vector2d node_movement(vector2d node, int & x, int & y, const int & direction) {
     return node;
 }
 
-std::vector<node> add_nodes(node p_node, node & goal, int & x, int & y) {
+std::vector<node> add_nodes(node p_node, node & goal, int & x, int & y, int heuristic(const vector2d &, const vector2d &)) {
     node new_node;
     std::vector<node> expend_list;
     for (int i = 0; i < 4; i++) {
         new_node.puzzle = node_movement(p_node.puzzle, x, y, i);
         new_node.g = p_node.g + 1;
-        new_node.f = new_node.g + hammingHeuristic(new_node.puzzle, goal.puzzle);
+        new_node.f = new_node.g + heuristic(new_node.puzzle, goal.puzzle);
         new_node.parent = p_node.parent;
         new_node.parent.push_back(p_node.puzzle);
         if (new_node.puzzle != p_node.puzzle)
@@ -55,12 +55,12 @@ std::vector<node> add_nodes(node p_node, node & goal, int & x, int & y) {
     return expend_list;
 }
 
-std::vector<node> expend_node(node & p_node, node & goal) {
+std::vector<node> expend_node(node & p_node, node & goal, int heuristic(const vector2d &, const vector2d &)) {
     const int size = p_node.puzzle.size();
     for (int x = 0; x < size; x++) {
         for (int y = 0; y < size; y++) {
             if (p_node.puzzle[x][y] == 0)
-                return add_nodes(p_node, goal, x, y);
+                return add_nodes(p_node, goal, x, y, heuristic);
         }
     }
     throw(std::logic_error("expend_node: no zero in this puzzle"));

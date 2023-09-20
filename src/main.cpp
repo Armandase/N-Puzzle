@@ -4,6 +4,38 @@
 #include "../inc/algorithm.hpp"
 #include "../inc/manhattanHeuristic.hpp"
 
+node choose_heuristic(const vector2d& puzzle) {
+    std::cout << "Heuristic function:" << std::endl;
+    std::cout << "  1: manhattan distance (distance between the number on the puzzle and its final position)" << std::endl;
+    std::cout << "  2: linear conflict (Armand explain pls)" << std::endl;
+    std::cout << "  3: to define\n" << std::endl;
+    std::cout << "Choose an heuristic method: ";
+    std::string str;
+
+    while (1) {
+        std::getline(std::cin, str);
+        if (str == "1" || str == "2" || str == "3")
+            break;
+        str.clear();
+    }
+    std::cout << std::endl;
+    print_puzzle(puzzle);
+
+    switch (std::stoi(str)) {
+        case MANHATTAN:
+            return (aStarAlgorithm(puzzle, &manhattanHeuristic));
+        case LINEAR:
+            return (aStarAlgorithm(puzzle, &linearConflict));
+        case TO_DEFINE:
+            return (aStarAlgorithm(puzzle, &hammingHeuristic));
+            break;
+        default:
+            break;
+    }
+    throw(std::logic_error("choose_heuristic: bad heuristic choice"));
+
+}
+
 int main (int ac, char **av) {
     try {
         if (ac > 3)
@@ -13,11 +45,11 @@ int main (int ac, char **av) {
             puzzle = parse_file(av[1]);
         else
             puzzle = generate_puzzle();
-        print_puzzle(puzzle);
         check_solvability(puzzle, puzzle.size());
+
+
         
-        // node result = aStarAlgorithmV2(puzzle);
-        node result = aStarAlgorithm(puzzle);
+        node result = choose_heuristic(puzzle);
         std::cout << "Number of moves: " << result.g << "\n\n";
         print_puzzle(result.puzzle);
 

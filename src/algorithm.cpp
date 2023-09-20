@@ -2,6 +2,7 @@
 #include "../inc/utils.hpp"
 #include "../inc/manhattanHeuristic.hpp"
 #include <algorithm>
+#include <queue>
 
 
 
@@ -32,9 +33,9 @@ std::vector<node>    findLowestF(const std::vector<node>& list){
     return (result);
 }
 
-node    aStarAlgorithm(vector2d& puzzle){
+node    aStarAlgorithm(const vector2d& puzzle, int heuristic(const vector2d &, const vector2d &)){
     node goal = {finalPuzzle(puzzle.size()), 0, 0, std::vector<vector2d>(0)};
-    node start = {puzzle, 0, hammingHeuristic(puzzle, goal.puzzle), std::vector<vector2d>(0)};
+    node start = {puzzle, 0, heuristic(puzzle, goal.puzzle), std::vector<vector2d>(0)};
     std::vector<node> open_list = {start};
     std::vector<node> closed_list;
     std::vector<node> tmp;
@@ -47,6 +48,7 @@ node    aStarAlgorithm(vector2d& puzzle){
         process_list = findLowestF(open_list);
 
         for (node process : process_list) {
+            closed_list.push_back(process);
             if (process.puzzle == goal.puzzle){
                 std::cout << "complexity in size: " << max_open << std::endl;
                 std::cout << "complexity in time: " << i << std::endl;
@@ -55,7 +57,7 @@ node    aStarAlgorithm(vector2d& puzzle){
 
             open_list.erase(findInstance(process, open_list));
 
-            check_node = expend_node(process, goal);
+            check_node = expend_node(process, goal, heuristic);
             for (node current: check_node) {
                 if (current.puzzle == goal.puzzle){
                     std::cout << "complexity in size: " << max_open << std::endl;
@@ -75,9 +77,7 @@ node    aStarAlgorithm(vector2d& puzzle){
                 } else {
                     tmp.push_back(current);
                 }
-
             }
-            closed_list.push_back(process);
         }
         open_list = tmp;
         // open_list.insert( open_list.end(), tmp.begin(), tmp.end() );
@@ -90,4 +90,3 @@ node    aStarAlgorithm(vector2d& puzzle){
     std::cout << "complexity in time: " << i << std::endl;
     throw(std::logic_error("aStarAlgorithm: No solution found"));
 }
-
