@@ -4,19 +4,19 @@
 int checkConflict(const point & coo, const vector2d& puzzle, const vector2d& final, std::map<int , int>& checkValues){
     const int dirRow[] = { 0, 1, 0, -1 };
     const int dirColumn[] = { 1, 0, -1, 0 };
-    const int size = 4;
     const int puzzleSize = puzzle.size() - 1;
-    int result = 0;
-    int x = 0, y = 0;
     const int finalNumber = final[coo.y][coo.x];
     const int currentNumber = puzzle[coo.y][coo.x];
+    int result = 0;
+    int x = 0, y = 0;
 
-    for (int i = 0; i < size; i++){
+    for (int i = 0; i < 4; i++){
         x = coo.x + dirColumn[i];
         y = coo.y + dirRow[i];
         if (x < 0 || y < 0 
         || x > puzzleSize || y > puzzleSize 
-        || puzzle[y][x] == 0 || puzzle[y][x] != finalNumber || currentNumber != final[y][x])
+        || puzzle[y][x] == 0
+        || puzzle[y][x] != finalNumber || currentNumber != final[y][x])
             continue;
         //add them to a map given as parameter
         // and at the end, check if there is duplicate
