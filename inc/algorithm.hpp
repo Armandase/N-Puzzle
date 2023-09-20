@@ -21,7 +21,9 @@ typedef struct t_node
 
 
 node    aStarAlgorithm(vector2d&);
+node    aStarAlgorithmV2(vector2d&);
 std::vector<node> expend_node(node &, node &);
+std::vector<node> findLowestF(const std::vector<node>& );
 
 /*
 g est égal au nombre de coup, 

@@ -34,7 +34,7 @@ std::vector<node>    findLowestF(const std::vector<node>& list){
 
 node    aStarAlgorithm(vector2d& puzzle){
     node goal = {finalPuzzle(puzzle.size()), 0, 0, std::vector<vector2d>(0)};
-    node start = {puzzle, 0, manhattanHeuristic(puzzle, goal.puzzle), std::vector<vector2d>(0)};
+    node start = {puzzle, 0, linearConflict(puzzle, goal.puzzle), std::vector<vector2d>(0)};
     std::vector<node> open_list = {start};
     std::vector<node> closed_list;
     std::vector<node> tmp;
@@ -70,11 +70,9 @@ node    aStarAlgorithm(vector2d& puzzle){
 
 
                 std::vector<node>::iterator it_tmp = findInstance(current, tmp);
-                if (it_tmp != tmp.end() && it_tmp->f < current.f){
-                    // if (current.g < it_tmp->g){
-                        continue;
-                    // }
-                }else{
+                if (it_tmp != tmp.end()){
+                    continue;
+                } else {
                     tmp.push_back(current);
                 }
 
@@ -82,6 +80,7 @@ node    aStarAlgorithm(vector2d& puzzle){
             closed_list.push_back(process);
         }
         open_list = tmp;
+        // open_list.insert( open_list.end(), tmp.begin(), tmp.end() );
         i += tmp.size();
         if (max_open < open_list.size())
             max_open = open_list.size();

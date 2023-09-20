@@ -47,7 +47,7 @@ vector2d generate_puzzle() {
     std::random_device rd;
     std::mt19937 gen(rd());
     // const int size = 3 + (gen() % 4);
-    const int size = 3;
+    const int size = 4;
     vector2d result(size, std::vector<int>());
 
     int len_values = size * size;

@@ -13,6 +13,8 @@ int     computeDistance(const point& puzzleCoo, const point& finalCoo);
 int     manhattanHeuristic(const vector2d& puzzle, const vector2d& final);
 int     hammingHeuristic(const vector2d& puzzle, const vector2d& final);
 
+int linearConflict(const vector2d& puzzle, const vector2d& final);
+
 
 #endif // !__MANHATTANHEURSITIC_HPP__
 
