@@ -64,13 +64,13 @@ node    aStarAlgorithm(vector2d& puzzle){
                 }
 
                 std::vector<node>::iterator it_close = findInstance(current, closed_list);
-                if (it_close != closed_list.end()){
+                if (it_close != closed_list.end() && it_close->f < current.f){
                     continue;
                 }
 
 
                 std::vector<node>::iterator it_tmp = findInstance(current, tmp);
-                if (it_tmp != tmp.end()){
+                if (it_tmp != tmp.end() && it_tmp->f < current.f){
                     // if (current.g < it_tmp->g){
                         continue;
                     // }
