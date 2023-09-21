@@ -30,7 +30,7 @@ node choose_heuristic(const vector2d &puzzle)
         case LINEAR:
             return (aStarAlgorithm(puzzle, &linearConflict));
         case EUCLIDIAN:
-            return (aStarAlgorithm(puzzle, &hammingHeuristic));
+            return (aStarAlgorithm(puzzle, &euclidianDistance));
         default:
             break;
     }

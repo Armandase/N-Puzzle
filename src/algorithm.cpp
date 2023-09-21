@@ -2,9 +2,7 @@
 #include "../inc/utils.hpp"
 #include "../inc/manhattanHeuristic.hpp"
 #include <algorithm>
-#include <queue>
-
-
+#include <limits>
 
 std::vector<node>::iterator findInstance(const node& process, std::vector<node>& list){
     std::vector<node>::iterator end = list.end();
@@ -16,7 +14,7 @@ std::vector<node>::iterator findInstance(const node& process, std::vector<node>&
 }
 
 std::vector<node>    findLowestF(const std::vector<node>& list){
-    int lowest = INT32_MAX;
+    float lowest = std::numeric_limits<float>::infinity();
     const int size = list.size();
     std::vector<node> result;
 
@@ -33,7 +31,7 @@ std::vector<node>    findLowestF(const std::vector<node>& list){
     return (result);
 }
 
-node    aStarAlgorithm(const vector2d& puzzle, int heuristic(const vector2d &, const vector2d &)){
+node    aStarAlgorithm(const vector2d& puzzle, float heuristic(const vector2d &, const vector2d &)){
     node goal = {finalPuzzle(puzzle.size()), 0, 0, std::vector<vector2d>(0)};
     node start = {puzzle, 0, heuristic(puzzle, goal.puzzle), std::vector<vector2d>(0)};
     std::vector<node> open_list = {start};
