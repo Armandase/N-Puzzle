@@ -29,6 +29,8 @@ float euclidianDistance(const vector2d &puzzle, const vector2d &final)
     float h = 0;
     int size = puzzle.size();
     point coo;
+    int distanceX;
+    int distanceY;
 
     for (int x = 0; x < size; x++)
     {
@@ -39,8 +41,11 @@ float euclidianDistance(const vector2d &puzzle, const vector2d &final)
                 getFinalCoordinate(puzzle[x][y], final, coo);
                 if (coo.x == x || coo.y == y)
                     h += (x + y);
-                else
-                    h += std::pow(std::pow((coo.x - x), 2) + std::pow((coo.y - y), 2), 0.5);
+                else{
+                    distanceX = coo.x - x;
+                    distanceY = coo.y - y;
+                    h += std::pow((distanceX * distanceX) + (distanceY * distanceY), 0.5);
+                }
             }
         }
     }

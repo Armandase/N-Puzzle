@@ -14,21 +14,21 @@ std::vector<node>::iterator findInstance(const node& process, std::vector<node>&
 }
 
 std::vector<node>    findLowestF(const std::vector<node>& list){
-    float lowest = std::numeric_limits<float>::infinity();
-    const int size = list.size();
     std::vector<node> result;
-
-    for (int i = 0; i < size; i++){
-        if (list[i].f < lowest)
-            lowest = list[i].f;
-    }
+    const int value = list.front().f;
+    const int size = list.size();
 
     for (int i = 0; i < size; i++) {
-        if (list[i].f == lowest)
-            result.push_back(list[i]);
+        if (list[i].f > value)
+            break;
+        result.push_back(list[i]);
     }
 
     return (result);
+}
+
+bool compareNodeByF(const node& a, const node& b) {
+    return a.f < b.f;
 }
 
 node    aStarAlgorithm(const vector2d& puzzle, float heuristic(const vector2d &, const vector2d &)){
@@ -36,11 +36,10 @@ node    aStarAlgorithm(const vector2d& puzzle, float heuristic(const vector2d &,
     node start = {puzzle, 0, heuristic(puzzle, goal.puzzle), std::vector<vector2d>(0)};
     std::vector<node> open_list = {start};
     std::vector<node> closed_list;
-    std::vector<node> tmp;
     std::vector<node> check_node;
     std::vector<node> process_list;
     int i = 1;
-    int max_open = 0;
+    unsigned long max_open = 0;
 
     while (!open_list.empty()) {
         process_list = findLowestF(open_list);
@@ -51,7 +50,6 @@ node    aStarAlgorithm(const vector2d& puzzle, float heuristic(const vector2d &,
                 std::cout << "complexity in time: " << i << std::endl;
                 return (process);
             }
-
             open_list.erase(findInstance(process, open_list));
 
             check_node = expend_node(process, goal, heuristic);
@@ -63,26 +61,23 @@ node    aStarAlgorithm(const vector2d& puzzle, float heuristic(const vector2d &,
                 }
 
                 std::vector<node>::iterator it_close = findInstance(current, closed_list);
-                if (it_close != closed_list.end() && it_close->f < current.f){
+                if (it_close != closed_list.end()){
                     continue;
                 }
 
-
-                std::vector<node>::iterator it_tmp = findInstance(current, tmp);
-                if (it_tmp != tmp.end()){
+                std::vector<node>::iterator it_tmp = findInstance(current, open_list);
+                if (it_tmp != open_list.end()){
                     continue;
                 } else {
-                    tmp.push_back(current);
+                    std::vector<node>::iterator insert_pos = std::lower_bound(open_list.begin(), open_list.end(), current, compareNodeByF);
+                    open_list.insert(insert_pos, current);
+                    i++;
                 }
             }
             closed_list.push_back(process);
         }
-        open_list = tmp;
-        // open_list.insert( open_list.end(), tmp.begin(), tmp.end() );
-        i += tmp.size();
         if (max_open < open_list.size())
             max_open = open_list.size();
-        tmp.clear();
     }
     std::cout << "complexity in size: " << max_open << std::endl;
     std::cout << "complexity in time: " << i << std::endl;
