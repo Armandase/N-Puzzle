@@ -15,14 +15,14 @@ typedef struct t_node
 {
     vector2d    puzzle;
     int         g;
-    int         f;
+    float         f;
     std::vector<vector2d>  parent;
 } node;
 
 
-node    aStarAlgorithm(const vector2d&, int heuristic(const vector2d &, const vector2d &));
+node    aStarAlgorithm(const vector2d&, float heuristic(const vector2d &, const vector2d &));
 node    aStarAlgorithmV2(vector2d&);
-std::vector<node> expend_node(node &, node &, int heuristic(const vector2d &, const vector2d &));
+std::vector<node> expend_node(node &, node &, float heuristic(const vector2d &, const vector2d &));
 std::vector<node> findLowestF(const std::vector<node>& );
 
 /*
