@@ -33,7 +33,7 @@ int checkConflict(const point & coo, const vector2d& puzzle, const vector2d& fin
     return (result);
 }
 
-float linearConflict(const vector2d& puzzle, const vector2d& final){
+int linearConflict(const vector2d& puzzle, const vector2d& final){
     const int size = puzzle.size();
     int result = 0;
     int conflicts = 0;

@@ -36,7 +36,7 @@ int   computeDistance(const point& puzzleCoo, const point& finalCoo){
     return (result);
 }
 
-float manhattanHeuristic(const vector2d& puzzle, const vector2d& final){
+int manhattanHeuristic(const vector2d& puzzle, const vector2d& final){
     const int size = puzzle.size();
     int result = 0;
     std::vector<point> difference(2);

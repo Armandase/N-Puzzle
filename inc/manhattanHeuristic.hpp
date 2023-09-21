@@ -10,10 +10,10 @@ typedef struct t_point {
 
 void    getCoordinate(const int& value, const vector2d& puzzle, const vector2d& final, std::vector<point>& difference);
 int     computeDistance(const point& puzzleCoo, const point& finalCoo);
-float     manhattanHeuristic(const vector2d& puzzle, const vector2d& final);
-float     euclidianDistance(const vector2d& puzzle, const vector2d& final);
+int     manhattanHeuristic(const vector2d& puzzle, const vector2d& final);
+int     euclidianDistance(const vector2d& puzzle, const vector2d& final);
 
-float linearConflict(const vector2d& puzzle, const vector2d& final);
+int linearConflict(const vector2d& puzzle, const vector2d& final);
 
 
 #endif // !__MANHATTANHEURSITIC_HPP__

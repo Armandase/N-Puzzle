@@ -31,7 +31,7 @@ bool compareNodeByF(const node& a, const node& b) {
     return a.f < b.f;
 }
 
-node    aStarAlgorithm(const vector2d& puzzle, float heuristic(const vector2d &, const vector2d &)){
+node    aStarAlgorithm(const vector2d& puzzle, int heuristic(const vector2d &, const vector2d &)){
     node goal = {finalPuzzle(puzzle.size()), 0, 0, std::vector<vector2d>(0)};
     node start = {puzzle, 0, heuristic(puzzle, goal.puzzle), std::vector<vector2d>(0)};
     std::vector<node> open_list = {start};

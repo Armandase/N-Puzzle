@@ -40,7 +40,7 @@ vector2d node_movement(vector2d node, int & x, int & y, const int & direction) {
     return node;
 }
 
-std::vector<node> add_nodes(node p_node, node & goal, int & x, int & y, float heuristic(const vector2d &, const vector2d &)) {
+std::vector<node> add_nodes(node p_node, node & goal, int & x, int & y, int heuristic(const vector2d &, const vector2d &)) {
     node new_node;
     std::vector<node> expend_list;
     for (int i = 0; i < 4; i++) {
@@ -55,7 +55,7 @@ std::vector<node> add_nodes(node p_node, node & goal, int & x, int & y, float he
     return expend_list;
 }
 
-std::vector<node> expend_node(node & p_node, node & goal, float heuristic(const vector2d &, const vector2d &)) {
+std::vector<node> expend_node(node & p_node, node & goal, int heuristic(const vector2d &, const vector2d &)) {
     const int size = p_node.puzzle.size();
     for (int x = 0; x < size; x++) {
         for (int y = 0; y < size; y++) {

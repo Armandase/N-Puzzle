@@ -24,9 +24,9 @@ void getFinalCoordinate(const int &value, const vector2d &final, point &coo)
     }
 }
 
-float euclidianDistance(const vector2d &puzzle, const vector2d &final)
+int euclidianDistance(const vector2d &puzzle, const vector2d &final)
 {
-    float h = 0;
+    int h = 0;
     int size = puzzle.size();
     point coo;
     int distanceX;
@@ -49,5 +49,7 @@ float euclidianDistance(const vector2d &puzzle, const vector2d &final)
             }
         }
     }
+    if (h - (int)h > 0.5)
+        h++;
     return h;
 }
