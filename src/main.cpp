@@ -7,7 +7,7 @@
 node choose_heuristic(const vector2d& puzzle) {
     std::cout << "Heuristic function:" << std::endl;
     std::cout << "  1: manhattan distance (distance between the number on the puzzle and its final position)" << std::endl;
-    std::cout << "  2: linear conflict (Armand explain pls)" << std::endl;
+    std::cout << "  2: linear conflict (Manhattan multiplied by 2 * the number of conflicts)" << std::endl;
     std::cout << "  3: to define\n" << std::endl;
     std::cout << "Choose an heuristic method: ";
     std::string str;
@@ -28,7 +28,6 @@ node choose_heuristic(const vector2d& puzzle) {
             return (aStarAlgorithm(puzzle, &linearConflict));
         case TO_DEFINE:
             return (aStarAlgorithm(puzzle, &hammingHeuristic));
-            break;
         default:
             break;
     }
