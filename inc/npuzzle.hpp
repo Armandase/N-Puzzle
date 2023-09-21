@@ -1,17 +1,18 @@
 #ifndef __NPUZZLE_HPP__
-# define __NPUZZLE_HPP__
+#define __NPUZZLE_HPP__
 
-# include <exception>
-# include <iostream>
-# include <vector>
-# define USAGE "Usage: ./n-puzzle <file.txt>"
+#include <exception>
+#include <iostream>
+#include <vector>
+#define USAGE "Usage: ./n-puzzle <file.txt>"
 
-enum heuristic {
+enum heuristic
+{
     MANHATTAN = 1,
     LINEAR,
-    TO_DEFINE,
+    EUCLIDIAN,
 };
 
-typedef std::vector<std::vector<int> > vector2d;
+typedef std::vector<std::vector<int>> vector2d;
 
 #endif

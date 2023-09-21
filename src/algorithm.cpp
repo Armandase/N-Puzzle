@@ -48,7 +48,6 @@ node    aStarAlgorithm(const vector2d& puzzle, int heuristic(const vector2d &, c
         process_list = findLowestF(open_list);
 
         for (node process : process_list) {
-            closed_list.push_back(process);
             if (process.puzzle == goal.puzzle){
                 std::cout << "complexity in size: " << max_open << std::endl;
                 std::cout << "complexity in time: " << i << std::endl;
@@ -78,6 +77,7 @@ node    aStarAlgorithm(const vector2d& puzzle, int heuristic(const vector2d &, c
                     tmp.push_back(current);
                 }
             }
+            closed_list.push_back(process);
         }
         open_list = tmp;
         // open_list.insert( open_list.end(), tmp.begin(), tmp.end() );
