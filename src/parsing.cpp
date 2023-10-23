@@ -4,6 +4,7 @@
 std::vector<int> mysplit(std::string & line, std::string delimiter) {
 	std::string str;
 	std::vector<int> tab;
+    char *endPtr;
 	for (unsigned long i = 0; i < line.size(); i++) {
 		while (line[i] && strchr(delimiter.c_str(), line[i]))
 			i++;
@@ -13,6 +14,10 @@ std::vector<int> mysplit(std::string & line, std::string delimiter) {
 			str += line[i];
 			i++;
 		}
+        endPtr = nullptr;
+        strtod(str.c_str(), &endPtr);
+        if (strlen(endPtr) > 0)
+            throw (std::logic_error("The puzzle need to contains only number: " + str));
 		tab.push_back(std::stoi(str));
 		str.clear();
 	}
@@ -40,6 +45,7 @@ void check_puzzle_number(const vector2d &puzzle) {
 
 int get_puzzle_len(std::ifstream &input) {
     std::string line;
+    char * endPtr;
 
     do {
         if (!getline(input, line))
@@ -50,7 +56,9 @@ int get_puzzle_len(std::ifstream &input) {
     if (line.find_first_of(' ') != std::string::npos
         || line.find_first_of('\t') != std::string::npos)
         throw(std::logic_error("parse_file: need to precise size of the square in the file"));
-
+    strtod(line.c_str(), &endPtr);
+    if (strlen(endPtr))
+        throw(std::logic_error("parse_file: The puzzle size need to be a number: " + line));
     return std::stoi(line);
 }
 

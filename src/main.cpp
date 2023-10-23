@@ -9,7 +9,8 @@ node choose_heuristic(const vector2d &puzzle)
     std::cout << "Heuristic function:" << std::endl;
     std::cout << "  1: Manhattan distance (distance between the number on the puzzle and its final position)" << std::endl;
     std::cout << "  2: Linear conflict (Manhattan multiplied by 2 * the number of conflicts)" << std::endl;
-    std::cout << "  3: Euclidian distance ()\n" << std::endl;
+    std::cout << "  3: Misplaced tiles (add 1 to heuristc when a tile is misplaced, slowest/simplest heuristic)\n"
+              << std::endl;
     std::cout << "Choose an heuristic method: ";
     std::string str;
 
@@ -30,7 +31,7 @@ node choose_heuristic(const vector2d &puzzle)
         case LINEAR:
             return (aStarAlgorithm(puzzle, &linearConflict));
         case EUCLIDIAN:
-            return (aStarAlgorithm(puzzle, &euclidianDistance));
+            return (aStarAlgorithm(puzzle, &misplacedTiles));
         default:
             break;
     }
