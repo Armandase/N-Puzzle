@@ -9,8 +9,7 @@ node choose_heuristic(const vector2d &puzzle)
     std::cout << "Heuristic function:" << std::endl;
     std::cout << "  1: Manhattan distance (distance between the number on the puzzle and its final position)" << std::endl;
     std::cout << "  2: Linear conflict (Manhattan multiplied by 2 * the number of conflicts)" << std::endl;
-    std::cout << "  3: Euclidian distance ()\n"
-              << std::endl;
+    std::cout << "  3: Euclidian distance ()\n" << std::endl;
     std::cout << "Choose an heuristic method: ";
     std::string str;
 
@@ -19,6 +18,7 @@ node choose_heuristic(const vector2d &puzzle)
         std::getline(std::cin, str);
         if (str == "1" || str == "2" || str == "3")
             break;
+        std::cout << "Choose an heuristic method: ";
         str.clear();
     }
     std::cout << std::endl;
