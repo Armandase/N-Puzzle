@@ -3,7 +3,7 @@ NAME 	= 	n-puzzle
 SRC 	=	main.cpp parsing.cpp \
 			utils.cpp algorithm.cpp \
 			expend.cpp manhattanHeuristic.cpp \
-			euclidianDistance.cpp solvable.cpp \
+			misplacedTiles.cpp solvable.cpp \
 			linearConflict.cpp
 HEADER	=	inc/parsing.hpp inc/npuzzle.hpp \
 			inc/utils.hpp inc/algorithm.hpp \
