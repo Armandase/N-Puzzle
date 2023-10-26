@@ -4,7 +4,9 @@
 #include <exception>
 #include <iostream>
 #include <vector>
+
 #define USAGE "Usage: ./n-puzzle <file.txt>"
+#define EXTENSION ".txt"
 
 enum heuristic
 {
