@@ -49,7 +49,8 @@ vector2d generate_puzzle() {
     /* use to generate puzzle of random size
         const int size = 3 + (gen() % 4);
     */
-    const int size = 3;
+    // const int size = 3;
+    const int size = PUZZLE_SIZE;
     vector2d result(size, std::vector<int>());
 
     int len_values = size * size;
