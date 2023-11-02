@@ -17,6 +17,10 @@ node choose_heuristic(const vector2d &puzzle)
     while (1)
     {
         std::getline(std::cin, str);
+        if (std::cin.eof()) {
+            std::cout << std::endl;
+            exit(0);
+        }
         if (str == "1" || str == "2" || str == "3")
             break;
         std::cout << "Choose an heuristic method: ";
