@@ -25,7 +25,9 @@ std::vector<int> mysplit(std::string & line, std::string delimiter) {
 }
 
 void check_extension(const std::string & file, std::string extension) {
-    if (file.find_last_of('.') == std::string::npos || file.substr(file.find_last_of('.')) != extension)
+    size_t pointPos = file.find_last_of('.');
+    if (pointPos == std::string::npos || file[pointPos - 1] == '/'
+        || pointPos == 0 || file.substr(pointPos) != extension)
         throw(std::logic_error("check_extension: bad file extension\n" + std::string(USAGE)));
 }
 
@@ -64,9 +66,11 @@ int get_puzzle_len(std::ifstream &input) {
 
 vector2d parse_file(const char * str) {
     std::string file(str);
-    check_extension(file, ".txt");
+    check_extension(file, EXTENSION);
 
     std::ifstream input(file);
+    if (!input)
+        throw(std::logic_error("parse_file: the file does not exist or cannot be opened\n" + std::string(USAGE)));
     std::string line;
 
     const int size = get_puzzle_len(input);

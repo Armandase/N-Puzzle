@@ -2,90 +2,67 @@
 #include "../inc/utils.hpp"
 #include "../inc/manhattanHeuristic.hpp"
 
-struct compare
-{
-    bool operator()(node const& left, node const& right){
-        return (left.f < right.f);
+bool findInstance(const node& toFind, nodePrioQueue list){
+    while (!list.empty()){
+        if (list.top().puzzle == toFind.puzzle)
+            return (true);
+        list.pop();
     }
-};
-
-std::vector<node>::iterator findInstance(const node& process, std::vector<node>& list){
-    std::vector<node>::iterator end = list.end();
-    for (std::vector<node>::iterator it  = list.begin(); it != end; it++){
-        if (it->puzzle == process.puzzle)
-            return (it);
-    }
-    return end;
+    return false;
 }
 
-nodePrioQueue    findLowestF(nodePrioQueue queue){
-    std::priority_queue<node> result;
-    const int value = queue.top().f;
-    const int size = queue.size();
-
-    for (int i = 0; i < size; i++) {
-        if (queue.top().f > value)
-            break;
-        result.push(queue.top());
-        queue.pop();
+void    printPrioQueue(nodePrioQueue list){
+    std::cout << "LIST BEGIN: \n";
+    while (!list.empty()){
+        std::cout << list.top().f << "\n";
+        list.pop();
     }
-
-    return (result);
-}
-
-bool compareNodeByF(const node& a, const node& b) {
-    return (a.f < b.f);
+    std::cout << "END: \n";
 }
 
 node    aStarAlgorithm(const vector2d& puzzle, int heuristic(const vector2d &, const vector2d &)){
+    nodePrioQueue open_list;
     node goal = {finalPuzzle(puzzle.size()), 0, 0, std::vector<vector2d>(0)};
     node start = {puzzle, 0, heuristic(puzzle, goal.puzzle), std::vector<vector2d>(0)};
-    nodePrioQueue open_list;
     open_list.push(start);
+
+    std::map<vector2d, int> close_list;
     
-    std::vector<node> closed_list;
     std::vector<node> check_node;
-    nodePrioQueue process_list;
-    int i = 1;
     unsigned long max_open = 0;
+    unsigned long i = 0;
 
     while (!open_list.empty()) {
-        process_list = findLowestF(open_list);
+        node process = open_list.top();
 
-        for (node process : process_list) {
-            if (process.puzzle == goal.puzzle){
+        if (process.puzzle == goal.puzzle){
+            std::cout << "complexity in size: " << max_open << std::endl;
+            std::cout << "complexity in time: " << i << std::endl;
+            return (process);
+        }
+        open_list.pop();
+        check_node = expend_node(process, goal, heuristic);
+        for (node current: check_node) {
+            if (current.puzzle == goal.puzzle){
                 std::cout << "complexity in size: " << max_open << std::endl;
                 std::cout << "complexity in time: " << i << std::endl;
-                return (process);
+                return (current);
             }
-            open_list.erase(findInstance(process, open_list));
 
-            check_node = expend_node(process, goal, heuristic);
-            for (node current: check_node) {
-                if (current.puzzle == goal.puzzle){
-                    std::cout << "complexity in size: " << max_open << std::endl;
-                    std::cout << "complexity in time: " << i << std::endl;
-                    return (current);
-                }
+            if (close_list.find(current.puzzle) != close_list.end())
+                continue;
 
-                std::vector<node>::iterator it_close = findInstance(current, closed_list);
-                if (it_close != closed_list.end()){
-                    continue;
-                }
-
-                std::vector<node>::iterator it_tmp = findInstance(current, open_list);
-                if (it_tmp != open_list.end()){
-                    continue;
-                } else {
-                    std::vector<node>::iterator insert_pos = std::lower_bound(open_list.begin(), open_list.end(), current, compareNodeByF);
-                    open_list.insert(insert_pos, current);
-                    i++;
-                }
-            }
-            closed_list.push_back(process);
+            if (findInstance(current, open_list) == true)
+                continue;
+            
+            //made a copy of open list and iter through we found current
+            open_list.push(current);
+            i++;
         }
+        close_list.insert(std::make_pair(process.puzzle, process.f));
         if (max_open < open_list.size())
             max_open = open_list.size();
+        // printPrioQueue(open_list);
     }
     std::cout << "complexity in size: " << max_open << std::endl;
     std::cout << "complexity in time: " << i << std::endl;

@@ -6,7 +6,10 @@
 # include <vector>
 # include <queue>
 
-# define USAGE "Usage: ./n-puzzle <file.txt>"
+#define USAGE "Usage: ./n-puzzle <file.txt>"
+#define EXTENSION ".txt"
+
+typedef std::vector<std::vector<int> > vector2d;
 
 enum heuristic
 {
@@ -31,7 +34,13 @@ typedef struct t_node
     // }
 } node;
 
-typedef std::vector<std::vector<int>> vector2d;
+struct compare
+{
+    bool operator()(node const& left, node const& right){
+        return (left.f > right.f);
+    }
+};
+
 typedef std::priority_queue<node, std::vector<node>, compare> nodePrioQueue;
 
 #endif
