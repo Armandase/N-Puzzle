@@ -25,7 +25,7 @@ std::vector<int> mysplit(std::string & line, std::string delimiter) {
 }
 
 void check_extension(const std::string & file, std::string extension) {
-    if (file.substr(file.find_last_of('.')) != extension)
+    if (file.find_last_of('.') == std::string::npos || file.substr(file.find_last_of('.')) != extension)
         throw(std::logic_error("check_extension: bad file extension\n" + std::string(USAGE)));
 }
 

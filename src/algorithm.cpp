@@ -1,8 +1,13 @@
 #include "../inc/algorithm.hpp"
 #include "../inc/utils.hpp"
 #include "../inc/manhattanHeuristic.hpp"
-#include <algorithm>
-#include <limits>
+
+struct compare
+{
+    bool operator()(node const& left, node const& right){
+        return (left.f < right.f);
+    }
+};
 
 std::vector<node>::iterator findInstance(const node& process, std::vector<node>& list){
     std::vector<node>::iterator end = list.end();
@@ -13,31 +18,34 @@ std::vector<node>::iterator findInstance(const node& process, std::vector<node>&
     return end;
 }
 
-std::vector<node>    findLowestF(const std::vector<node>& list){
-    std::vector<node> result;
-    const int value = list.front().f;
-    const int size = list.size();
+nodePrioQueue    findLowestF(nodePrioQueue queue){
+    std::priority_queue<node> result;
+    const int value = queue.top().f;
+    const int size = queue.size();
 
     for (int i = 0; i < size; i++) {
-        if (list[i].f > value)
+        if (queue.top().f > value)
             break;
-        result.push_back(list[i]);
+        result.push(queue.top());
+        queue.pop();
     }
 
     return (result);
 }
 
 bool compareNodeByF(const node& a, const node& b) {
-    return a.f < b.f;
+    return (a.f < b.f);
 }
 
 node    aStarAlgorithm(const vector2d& puzzle, int heuristic(const vector2d &, const vector2d &)){
     node goal = {finalPuzzle(puzzle.size()), 0, 0, std::vector<vector2d>(0)};
     node start = {puzzle, 0, heuristic(puzzle, goal.puzzle), std::vector<vector2d>(0)};
-    std::vector<node> open_list = {start};
+    nodePrioQueue open_list;
+    open_list.push(start);
+    
     std::vector<node> closed_list;
     std::vector<node> check_node;
-    std::vector<node> process_list;
+    nodePrioQueue process_list;
     int i = 1;
     unsigned long max_open = 0;
 
