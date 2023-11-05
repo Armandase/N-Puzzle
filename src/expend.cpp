@@ -1,6 +1,6 @@
 #include "../inc/algorithm.hpp"
 #include "../inc/utils.hpp"
-#include "../inc/manhattanHeuristic.hpp"
+#include "../inc/heuristic.hpp"
 
 
 vector2d node_movement(vector2d node, int & x, int & y, const int & direction) {

@@ -2,14 +2,15 @@
 #include "../inc/parsing.hpp"
 #include "../inc/utils.hpp"
 #include "../inc/algorithm.hpp"
-#include "../inc/manhattanHeuristic.hpp"
+#include "../inc/heuristic.hpp"
 
 node choose_heuristic(const vector2d &puzzle)
 {
     std::cout << "Heuristic function:" << std::endl;
     std::cout << "  1: Manhattan distance (distance between the number on the puzzle and its final position)" << std::endl;
-    std::cout << "  2: Linear conflict (Manhattan multiplied by 2 * the number of conflicts)" << std::endl;
-    std::cout << "  3: Euclidian distance (the shortest straight-line distance between two points in space)\n"
+    std::cout << "  2: Linear conflicts (Manhattan multiplied by 2 * the number of conflicts)" << std::endl;
+    // std::cout << "  3: Euclidian distance (the shortest straight-line distance between two points in space)\n"
+    std::cout << "  3: Hamming Distance + Linear conflict (based on linear conflicts and add every tiles that are not in their final position)\n"
               << std::endl;
     std::cout << "Choose an heuristic method: ";
     std::string str;
@@ -35,7 +36,7 @@ node choose_heuristic(const vector2d &puzzle)
         case LINEAR:
             return (aStarAlgorithm(puzzle, &linearConflict));
         case EUCLIDIAN:
-            return (aStarAlgorithm(puzzle, &euclidianDistance));
+            return (aStarAlgorithm(puzzle, &hammingDistanceBoosted));
         default:
             break;
     }
@@ -57,10 +58,11 @@ int main(int ac, char **av)
 
         node result = choose_heuristic(puzzle);
         std::cout << "Number of moves: " << result.g << "\n\n";
-        print_puzzle(result.puzzle);
 
-        // for (int i = result.parent.size() - 1; i >= 0; i--)
-        //     print_puzzle(result.parent[i]);
+        std::cout << "Path to found the result:\n";
+        for (int i = 0; i < (int)result.parent.size(); i++)
+            print_puzzle(result.parent[i]);
+        print_puzzle(result.puzzle);
     }
     catch (std::exception &e)
     {

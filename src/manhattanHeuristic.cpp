@@ -1,4 +1,4 @@
-#include "../inc/manhattanHeuristic.hpp"
+#include "../inc/heuristic.hpp"
 
 void    getCoordinate(const int& value, const vector2d& puzzle, const vector2d& final, std::vector<point>& difference)
 {

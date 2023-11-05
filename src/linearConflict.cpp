@@ -1,5 +1,4 @@
-#include "../inc/manhattanHeuristic.hpp"
-#include "map"
+#include "../inc/heuristic.hpp"
 
 int checkConflict(const point & coo, const vector2d& puzzle, const vector2d& final, std::map<int , int>& checkValues){
     const int dirRow[] = { 0, 1, 0, -1 };

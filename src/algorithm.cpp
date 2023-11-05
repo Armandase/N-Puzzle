@@ -1,6 +1,6 @@
 #include "../inc/algorithm.hpp"
 #include "../inc/utils.hpp"
-#include "../inc/manhattanHeuristic.hpp"
+#include "../inc/heuristic.hpp"
 
 bool findInstance(const node& toFind, nodePrioQueue list){
     while (!list.empty()){

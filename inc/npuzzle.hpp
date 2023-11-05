@@ -24,14 +24,6 @@ typedef struct t_node
     int         g;
     int         f;
     std::vector<vector2d>  parent;
-
-    // t_node(vector2d newPuzzle, int newG, int newF, std::vector<vector2d> newParent)
-    //     : puzzle(newPuzzle)
-    //     , g(newG)
-    //     , f(newF)
-    //     , parent(newParent)
-    // {        
-    // }
 } node;
 
 struct compare

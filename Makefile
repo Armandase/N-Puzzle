@@ -3,11 +3,11 @@ NAME 	= 	n-puzzle
 SRC 	=	main.cpp parsing.cpp \
 			utils.cpp algorithm.cpp \
 			expend.cpp manhattanHeuristic.cpp \
-			euclidianDistance.cpp solvable.cpp \
+			hammingDistanceBoosted.cpp solvable.cpp \
 			linearConflict.cpp
 HEADER	=	inc/parsing.hpp inc/npuzzle.hpp \
 			inc/utils.hpp inc/algorithm.hpp \
-			inc/manhattanHeuristic.hpp
+			inc/heuristic.hpp
 OBJS	=	$(addprefix obj/, $(SRC:.cpp=.o))
 CXXFLAGS=	-Wall -Wextra --std=c++14 -g
 
