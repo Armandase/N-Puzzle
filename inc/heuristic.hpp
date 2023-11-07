@@ -18,7 +18,8 @@ int     checkConflict(const point & coo, const vector2d& puzzle, const vector2d&
 int     manhattanHeuristic(const vector2d& puzzle, const vector2d& final);
 int     hammingDistanceBoosted(const vector2d& puzzle, const vector2d& final);
 int     linearConflict(const vector2d& puzzle, const vector2d& final);
-
+int     misplacedTiles(const vector2d &puzzle, const vector2d &final);
+int     euclidianDistance(const vector2d &puzzle, const vector2d &final);
 
 #endif // !__MANHATTANHEURSITIC_HPP__
 

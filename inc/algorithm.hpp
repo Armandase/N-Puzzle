@@ -14,8 +14,9 @@ enum direction {
 };
 
 node    aStarAlgorithm(const vector2d&, int heuristic(const vector2d &, const vector2d &));
-node    aStarAlgorithmV2(vector2d&);
+node    UCSAlgorithm(const vector2d& puzzle);
 std::vector<node> expend_node(node &, node &, int heuristic(const vector2d &, const vector2d &));
+std::vector<node> expend_node(node &, node &);
 nodePrioQueue    findLowestF(nodePrioQueue);
 
 #endif

@@ -4,7 +4,7 @@ SRC 	=	main.cpp parsing.cpp \
 			utils.cpp algorithm.cpp \
 			expend.cpp manhattanHeuristic.cpp \
 			hammingDistanceBoosted.cpp solvable.cpp \
-			linearConflict.cpp
+			linearConflict.cpp otherHeuristic.cpp
 HEADER	=	inc/parsing.hpp inc/npuzzle.hpp \
 			inc/utils.hpp inc/algorithm.hpp \
 			inc/heuristic.hpp
