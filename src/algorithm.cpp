@@ -18,8 +18,8 @@ static void printComplexity(unsigned long i, unsigned long max_open){
 
 node    aStarAlgorithm(const vector2d& puzzle, int heuristic(const vector2d &, const vector2d &)){
     nodePrioQueue open_list;
-    node goal = {finalPuzzle(puzzle.size()), 0, 0, std::vector<vector2d>(0)};
-    node start = {puzzle, 0, heuristic(puzzle, goal.puzzle), std::vector<vector2d>(0)};
+    node goal = {finalPuzzle(puzzle.size()), 0, 0, 0, std::vector<vector2d>(0)};
+    node start = {puzzle, 0, heuristic(puzzle, goal.puzzle), heuristic(puzzle, goal.puzzle), std::vector<vector2d>(0)};
     open_list.push(start);
 
     std::map<vector2d, int> close_list;

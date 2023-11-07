@@ -2,7 +2,6 @@
 # define __MANHATTANHEURSITIC_HPP__
 
 # include "npuzzle.hpp"
-// #include <cmath>
 #include <map>
 
 typedef struct t_point {

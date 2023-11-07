@@ -7,16 +7,13 @@
 # include <queue>
 # include <set>
 
-#define USAGE "Usage: ./n-puzzle <file.txt>"
-#define EXTENSION ".txt"
-#define BLK "\e[0;30m"
-#define RED "\e[0;31m"
-#define GRN "\e[0;32m"
-#define YEL "\e[0;33m"
-#define BLU "\e[0;34m"
-#define MAG "\e[0;35m"
-#define CYN "\e[0;36m"
-#define WHT "\e[0;37m"
+# define USAGE "Usage: ./n-puzzle <file.txt>"
+# define EXTENSION ".txt"
+
+# ifndef ALGORITHM
+#   define ALGORITHM 0
+# endif
+
 
 typedef std::vector<std::vector<int> > vector2d;
 
@@ -29,19 +26,38 @@ enum heuristic
     MISPLACED
 };
 
+enum algorithm
+{
+    ASTAR = 0,
+    GREEDY,
+    UNINFORMED,
+};
+
 typedef struct t_node
 {
     vector2d    puzzle;
     int         g;
     int         f;
+    int         h;
     std::vector<vector2d>  parent;
 } node;
 
 struct compare
 {
+#if ALGORITHM == 0
     bool operator()(node const& left, node const& right){
         return (left.f > right.f);
     }
+#elif ALGORITHM == 1
+    bool operator()(node const& left, node const& right){
+        return (left.h > right.h);
+    }
+#elif ALGORITHM == 2
+    bool operator()(node const& left, node const& right){
+        return (left.g > right.g);
+    }
+#endif
+    
 };
 
 typedef std::priority_queue<node, std::vector<node>, compare> nodePrioQueue;

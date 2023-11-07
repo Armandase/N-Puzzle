@@ -7,15 +7,11 @@
 node choose_heuristic(const vector2d &puzzle)
 {
     std::cout << "Heuristic function:" << std::endl;
-    std::cout << "  1: Manhattan distance (distance between the number on the puzzle and its final position)"
-              << std::endl;
+    std::cout << "  1: Manhattan distance (distance between the number on the puzzle and its final position)\n";
     std::cout << "  2: Linear conflicts (Manhattan multiplied by 2 * the number of conflicts)" << std::endl;
-    std::cout << "  3: Hamming Distance + Linear conflict (based on linear conflicts and add every tiles that are not "
-                 "in their final position)\n"
-              << std::endl;
+    std::cout << "  3: Hamming Distance + Linear conflict (based on linear conflicts and add every tiles that are not in their final position)\n";
     std::cout << "Bonus Heuristic:" << std::endl;
-    std::cout << "  4: Euclidian distance (the shortest straight-line distance between two points in space)"
-              << std::endl;
+    std::cout << "  4: Euclidian distance (the shortest straight-line distance between two points in space)\n";
     std::cout << "  5: Misplaced tiles (add 1 to heuristc when a  tile is misplaced, slowest/simplest heuristic)\n"
               << std::endl;
     std::cout << "Choose an heuristic method: ";
@@ -56,6 +52,7 @@ node choose_heuristic(const vector2d &puzzle)
     throw(std::logic_error("choose_heuristic: bad heuristic choice"));
 }
 
+
 int main(int ac, char **av)
 {
     try
@@ -68,22 +65,22 @@ int main(int ac, char **av)
             puzzle = parse_file(av[1]);
             check_solvability(puzzle, puzzle.size());
         }
-        else
-        {
-            while (1)
-            {
-                try
-                {
+        else {
+            while (1) {
+                try {
                     puzzle = generate_puzzle();
                     check_solvability(puzzle, puzzle.size());
                     break;
-                }
-                catch (std::exception &e)
-                {
-                }
+                } catch (std::exception &e) {}
             }
         }
-        node result = choose_heuristic(puzzle);
+
+        node result;
+        if (ALGORITHM == UNINFORMED){
+            result = aStarAlgorithm(puzzle, &manhattanHeuristic);
+        } else {
+            result = choose_heuristic(puzzle);
+        }
         std::cout << "Number of moves: " << result.g << "\n\n";
 
         std::cout << "Path to found the result:\n";

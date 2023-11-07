@@ -46,7 +46,8 @@ std::vector<node> add_nodes(node p_node, node & goal, int & x, int & y, int heur
     for (int i = 0; i < 4; i++) {
         new_node.puzzle = node_movement(p_node.puzzle, x, y, i);
         new_node.g = p_node.g + 1;
-        new_node.f = new_node.g + heuristic(new_node.puzzle, goal.puzzle);
+        new_node.h = heuristic(new_node.puzzle, goal.puzzle);
+        new_node.f = new_node.g + new_node.h;
         new_node.parent = p_node.parent;
         new_node.parent.push_back(p_node.puzzle);
         if (new_node.puzzle != p_node.puzzle)
