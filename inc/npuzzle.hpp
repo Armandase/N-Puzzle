@@ -45,15 +45,11 @@ struct compare
     bool operator()(node const& left, node const& right){
         return (left.f > right.f);
     }
-#endif
-
-#if ALGORITHM == 1
+#elif ALGORITHM == 1
     bool operator()(node const& left, node const& right){
         return (left.h > right.h);
     }
-#endif
-
-#if ALGORITHM == 2
+#elif ALGORITHM == 2
     bool operator()(node const& left, node const& right){
         return (left.g > right.g);
     }

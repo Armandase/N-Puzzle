@@ -57,7 +57,6 @@ int main(int ac, char **av)
         check_solvability(puzzle, puzzle.size());
 
         node result;
-        std::cout << ALGORITHM << " alog choosed :" << UNINFORMED << "\n";
         if (ALGORITHM == UNINFORMED){
             result = aStarAlgorithm(puzzle, &manhattanHeuristic);
         } else {
