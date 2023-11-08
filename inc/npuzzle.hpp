@@ -14,6 +14,9 @@
 #   define ALGORITHM 0
 # endif
 
+# define SCREEN_HEIGHT 500
+# define SCREEN_WIDTH 500
+
 
 typedef std::vector<std::vector<int> > vector2d;
 

@@ -52,7 +52,6 @@ node choose_heuristic(const vector2d &puzzle)
     throw(std::logic_error("choose_heuristic: bad heuristic choice"));
 }
 
-
 int main(int ac, char **av)
 {
     try
@@ -83,10 +82,11 @@ int main(int ac, char **av)
         }
         std::cout << "Number of moves: " << result.g << "\n\n";
 
+        graphical_render(result);
         std::cout << "Path to found the result:\n";
-        for (int i = 0; i < (int)result.parent.size(); i++)
-            print_puzzle(result.parent[i]);
-        print_puzzle(result.puzzle);
+        // for (int i = 0; i < (int)result.parent.size(); i++)
+        //     print_puzzle(result.parent[i]);
+        // print_puzzle(result.puzzle);
     }
     catch (std::exception &e)
     {
