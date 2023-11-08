@@ -77,7 +77,7 @@ vector2d generate_puzzle()
 bool graphicExtension()
 {
     std::string str;
-    std::cout << "Do you want graphic render ? [y/n] ";
+    std::cout << "Graphic Interface [y/n] ";
     while (1)
     {
         std::getline(std::cin, str);
@@ -88,7 +88,7 @@ bool graphicExtension()
         }
         if (str == "y" || str == "n")
             return str == "y" ? true : false;
-        std::cout << "Do you want graphic render ? [y/n] ";
+        std::cout << "Graphic Interface [y/n] ";
         str.clear();
     }
 }
