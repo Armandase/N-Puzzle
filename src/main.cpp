@@ -74,6 +74,7 @@ int main(int ac, char **av)
             }
         }
 
+        bool graphic = graphicExtension();
         node result;
         if (ALGORITHM == UNINFORMED){
             result = aStarAlgorithm(puzzle, &manhattanHeuristic);
@@ -82,11 +83,14 @@ int main(int ac, char **av)
         }
         std::cout << "Number of moves: " << result.g << "\n\n";
 
-        graphical_render(result);
-        std::cout << "Path to found the result:\n";
-        // for (int i = 0; i < (int)result.parent.size(); i++)
-        //     print_puzzle(result.parent[i]);
-        // print_puzzle(result.puzzle);
+        if (graphic)
+            graphical_render(result);
+        else {
+            std::cout << "Path to found the result:\n";
+            for (int i = 0; i < (int)result.parent.size(); i++)
+                print_puzzle(result.parent[i]);
+            print_puzzle(result.puzzle);
+        }
     }
     catch (std::exception &e)
     {
