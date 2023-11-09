@@ -25,7 +25,6 @@ void render_puzzle(vector2d& puzzle)
     int size = puzzle.size();
     render_board(size);
 
-    int line = SCREEN_HEIGHT;
     int offset = SCREEN_HEIGHT / size;
     int font_size = 50;
     int margin = (offset - font_size) / 2;
@@ -46,13 +45,13 @@ void    graphical_render(node& result){
             for (int i = 0; i < (int)result.parent.size(); i++){
                 BeginDrawing();
                 render_puzzle(result.parent[i]);
-                sleep(1);
+                usleep(RENDER_SPEED);
                 EndDrawing();
             }
              BeginDrawing();
                 render_puzzle(result.puzzle);
             EndDrawing();
-            sleep(5);
+            sleep(RENDER_FINAL);
             break ;
     }
 

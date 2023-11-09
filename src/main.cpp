@@ -24,7 +24,7 @@ node choose_heuristic(const vector2d &puzzle)
         if (std::cin.eof())
         {
             std::cout << std::endl;
-            exit(0);
+            throw(std::logic_error("quit prompt"));
         }
         if (validValues.find(str) != validValues.end())
             break;

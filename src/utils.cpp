@@ -84,7 +84,7 @@ bool graphicExtension()
         if (std::cin.eof())
         {
             std::cout << std::endl;
-            exit(0);
+            throw(std::logic_error("quit prompt"));
         }
         if (str == "y" || str == "n")
             return str == "y" ? true : false;

@@ -16,6 +16,8 @@
 
 # define SCREEN_HEIGHT 500
 # define SCREEN_WIDTH 500
+# define RENDER_SPEED 500000
+# define RENDER_FINAL 5
 
 
 typedef std::vector<std::vector<int> > vector2d;
